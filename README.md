@@ -41,3 +41,8 @@ fn main() {
 This repo contains two tests,  
 one that assumes a DHT11 is connected on GPIO pin 2 and  
 one that assumes a DHT22 is connected on GPIO pin 3.
+
+## Caveats
+
+This library works on Raspberry PIs and not other embedded devices such as Arduino and the likes. That is why it needs
+so little boilerplate.
