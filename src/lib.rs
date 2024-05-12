@@ -239,3 +239,39 @@ fn busy_wait_milliseconds(ms: u64) {
         }
     }
 }
+
+#[test]
+pub fn test_basic_reading_dht11() {
+    #[cfg(all(not(target_arch = "arm"), not(target_arch = "aarch64")))]
+    panic!("This test needs to be run on a PI - the architecture was not ARM, so this test will exit now.");
+
+    println!("\nTesting if reading succeeds. This tests assumes a DHT11 is connected on GPIO2\n");
+
+    let mut dht = Dht::new(DhtType::Dht11, 2).unwrap();
+
+    for i in 1..11 {
+        let reading = dht.read();
+        match reading {
+            Ok(reading) => {
+                if reading.temperature() < 5f32 || reading.temperature() > 35f32 {
+                    panic!(
+                        "Reading outside of defined sane range: Temperature is {}",
+                        reading.temperature()
+                    );
+                }
+                println!(
+                    "({}) Reading success: Temp {} Hum {}",
+                    i,
+                    reading.temperature(),
+                    reading.humidity()
+                );
+                return;
+            }
+            Err(err) => {
+                println!("({}) Error while reading: {:?}", i, err);
+            }
+        }
+    }
+
+    panic!("Reading failed all 10 times, something is not right.");
+}
