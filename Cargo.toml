@@ -1,0 +1,9 @@
+[package]
+name = "dht-mmap-rust"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+libc = "0.2.154"
+memmap = "0.7.0"
+
