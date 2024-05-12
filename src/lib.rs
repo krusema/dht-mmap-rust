@@ -241,13 +241,27 @@ fn busy_wait_milliseconds(ms: u64) {
 }
 
 #[test]
-pub fn test_basic_reading_dht11() {
+pub fn test_basic_reading_dht11_gpio_2() {
     #[cfg(all(not(target_arch = "arm"), not(target_arch = "aarch64")))]
     panic!("This test needs to be run on a PI - the architecture was not ARM, so this test will exit now.");
 
-    println!("\nTesting if reading succeeds. This tests assumes a DHT11 is connected on GPIO2\n");
+    println!("\nTesting if reading succeeds. This tests assumes a DHT11 is connected on GPIO 2\n");
 
-    let mut dht = Dht::new(DhtType::Dht11, 2).unwrap();
+    test_dht(DhtType::Dht11, 2);
+}
+
+#[test]
+pub fn test_basic_reading_dht22_gpio_3() {
+    #[cfg(all(not(target_arch = "arm"), not(target_arch = "aarch64")))]
+    panic!("This test needs to be run on a PI - the architecture was not ARM, so this test will exit now.");
+
+    println!("\nTesting if reading succeeds. This tests assumes a DHT11 is connected on GPIO 3\n");
+
+    test_dht(DhtType::Dht22, 3);
+}
+
+fn test_dht(typ: DhtType, pin: usize) {
+    let mut dht = Dht::new(typ, pin).unwrap();
 
     for i in 1..11 {
         let reading = dht.read();

@@ -36,4 +36,8 @@ fn main() {
 }
 ```
 
+## Tests
 
+This repo contains two tests,  
+one that assumes a DHT11 is connected on GPIO pin 2 and  
+one that assumes a DHT22 is connected on GPIO pin 3.
