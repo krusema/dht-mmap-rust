@@ -260,6 +260,7 @@ pub fn test_basic_reading_dht22_gpio_3() {
     test_dht(DhtType::Dht22, 3);
 }
 
+#[allow(dead_code)]
 fn test_dht(typ: DhtType, pin: usize) {
     let mut dht = Dht::new(typ, pin).unwrap();
 
