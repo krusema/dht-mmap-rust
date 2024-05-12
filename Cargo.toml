@@ -2,6 +2,9 @@
 name = "dht-mmap-rust"
 version = "0.1.0"
 edition = "2021"
+author = "Mathis Kruse <mathis.nikolas.kruse@gmail.com>"
+license = "MIT"
+description = "Simple access to DHT11 and DHT22 sensors for the Raspberry PI"
 
 [dependencies]
 libc = "0.2.154"
