@@ -172,7 +172,7 @@ impl Dht {
         // If the count is less than 50us it must be a ~28us 0 pulse. If it's higher,
         // then it must be a ~70us 1 pulse.
         for i in (3..(DHT_PULSES * 2)).step_by(2) {
-            let mut index = (i - 3) / 16;
+            let index = (i - 3) / 16;
             data[index] <<= 1;
             if pulse_counts[i] >= threshold {
                 // One bit for long pulse.

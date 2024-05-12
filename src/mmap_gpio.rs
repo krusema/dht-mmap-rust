@@ -19,9 +19,9 @@ const GPIO_LENGTH: usize = 4096;
 
 /// Direct Gpio access using mmap. Unmaps the mmapped region on drop.
 /// The functions for gpio access are "unsafe", because the pin number is used as a memory offset.
-pub struct GpioMmapAccess {
-    file: File,
-    map_struct: MmapMut,
+pub(crate) struct GpioMmapAccess {
+    _file: File,
+    _map_struct: MmapMut,
     map: *mut u32,
 }
 
@@ -30,7 +30,7 @@ pub struct GpioMmapAccess {
 pub enum GpioOpenError {
     /// In order to function, the file `/dev/gpiomem` needs to be opened. This error means that that did
     /// not work. The most likely reason is that the program is not run as root / has access to the file
-    /// or that the program has been run on a device that is not a raspberry pi or other compatible device.
+    /// or that the program has been run on a device that is not a raspberry pi.
     OpenGpioFileFailed(std::io::Error),
     /// An Error happened in trying to map the already opened File to memory. See contained io::Error
     /// for more information.
@@ -58,8 +58,8 @@ impl GpioMmapAccess {
         let raw_pointer = mmap_mut.as_mut_ptr() as *mut u32;
 
         return Ok(Self {
-            file: gpiomem,
-            map_struct: mmap_mut,
+            _file: gpiomem,
+            _map_struct: mmap_mut,
             map: raw_pointer,
         });
     }
